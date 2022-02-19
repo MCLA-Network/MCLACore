@@ -1,0 +1,14 @@
+name: MCLACore
+version: '${project.version}'
+main: me.notdew.com.mclacore.MCLACore
+api-version: 1.16
+description: MCLA Network Core Plugin.
+commands:
+  score:
+    usage: /<command>
+  hitlists:
+    usage: /<command>
+  getball:
+    usage: /<command>
+  removeball:
+    usage: /<command>
