@@ -27,7 +27,7 @@ public class ItemListener implements Listener {
         if (!(item.equals(getStartItem()) || item.equals(getStopItem()) || item.equals(getPauseItem()))) {
             return;
         }
-        if (!e.getPlayer().hasPermission("timer.mange")) {
+        if (!e.getPlayer().hasPermission("timer.manage")) {
             e.getPlayer().sendMessage(ChatColor.RED + "You have no permission!");
             return;
         }

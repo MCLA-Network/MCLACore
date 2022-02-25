@@ -27,9 +27,9 @@
 
 package me.notdew.com.mclacore.handling.handlers;
 
-import me.notdew.com.roboref.ReflectionUtils;
-import me.notdew.com.roboref.handling.PacketSender;
-import me.notdew.com.roboref.handling.TimerHandler;
+import me.notdew.com.mclacore.ReflectionUtils;
+import me.notdew.com.mclacore.handling.PacketSender;
+import me.notdew.com.mclacore.handling.TimerHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

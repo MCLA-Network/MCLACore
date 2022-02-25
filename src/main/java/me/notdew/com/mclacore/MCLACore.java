@@ -1,6 +1,10 @@
 package me.notdew.com.mclacore;
 
 import me.notdew.com.mclacore.Steal.*;
+import me.notdew.com.mclacore.handling.PacketSender;
+import me.notdew.com.mclacore.handling.handlers.BossBarHandler;
+import me.notdew.com.mclacore.handling.handlers.NewActionBarHandler;
+import me.notdew.com.mclacore.handling.handlers.OldActionBarHandler;
 import me.notdew.com.mclacore.runnable.TimerRunnable;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -12,10 +16,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.DisplaySlot;
+import me.notdew.com.mclacore.ReflectionUtils;
+
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;

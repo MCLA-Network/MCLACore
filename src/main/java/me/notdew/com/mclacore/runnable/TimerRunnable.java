@@ -28,10 +28,8 @@
 package me.notdew.com.mclacore.runnable;
 
 import me.notdew.com.mclacore.MCLACore;
-import me.notdew.com.roboref.Commands.TimerCommand;
-import me.notdew.com.roboref.RoboRef;
-import me.notdew.com.roboref.handling.TimerHandler;
-import me.notdew.com.roboref.handling.handlers.BossBarHandler;
+import me.notdew.com.mclacore.handling.TimerHandler;
+import me.notdew.com.mclacore.handling.handlers.BossBarHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -86,24 +84,7 @@ public class TimerRunnable implements Runnable {
                 }
                 Bukkit.broadcastMessage("c");
 
-                if (RoboRef.Quarter == 1) {
-                    TimerCommand.createTimer("Q2: ", 300);
-                    RoboRef.Quarter = 2;
-                    TimerCommand.resumeTimer();
-                    return;
-                } else if (RoboRef.Quarter == 2) {
-                    TimerCommand.createTimer("Q3: ", 300);
-                    RoboRef.Quarter = 3;
-                    return;
-                } else if (RoboRef.Quarter == 3) {
-                    TimerCommand.createTimer("Q4: ", 300);
-                    RoboRef.Quarter = 4;
-                    return;
-                } else if (RoboRef.Quarter == 4) {
-                    cancel();
-
-                    return;
-                }
+                cancel();
                 return;
             }
 

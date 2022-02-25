@@ -27,16 +27,10 @@
 
 package me.notdew.com.mclacore.handling.handlers;
 
-import com.sk89q.worldedit.bukkit.BukkitAdapter;
-import com.sk89q.worldguard.WorldGuard;
-import com.sk89q.worldguard.protection.ApplicableRegionSet;
-import com.sk89q.worldguard.protection.regions.RegionContainer;
-import com.sk89q.worldguard.protection.regions.RegionQuery;
+
 import me.notdew.com.mclacore.MCLACore;
-import me.notdew.com.roboref.Commands.TimerCommand;
-import me.notdew.com.roboref.RoboRef;
-import me.notdew.com.roboref.handling.TimerHandler;
-import me.notdew.com.roboref.ReflectionUtils;
+
+import me.notdew.com.mclacore.handling.TimerHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
@@ -80,7 +74,7 @@ public class BossBarHandler implements TimerHandler, Listener {
     private final Method setColor;
     private final Method setStyle;
 
-    public BossBarHandler(RoboRef plugin, String color, String style) throws NoSuchMethodException, ClassNotFoundException {
+    public BossBarHandler(MCLACore plugin, String color, String style) throws NoSuchMethodException, ClassNotFoundException {
         this.plugin = plugin;
 
         this.colorClass = Class.forName("org.bukkit.boss.BarColor");
@@ -140,18 +134,12 @@ public static void newTimer() throws InvocationTargetException, IllegalAccessExc
 
             bossBar = getBossBar.invoke(Bukkit.getServer(), text, color, style, Array.newInstance(flagClass.getComponentType(), 0));
             setProgress.invoke(bossBar, 1.0);
-            if (TimerCommand.rg == null) {
-                Bukkit.broadcastMessage("DIS NULL");
-                return;
-            }
 
 
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (bossBar != null) {
                     try {
-                        if (RoboRef.isOnRegion(player, TimerCommand.rg.getId())) {
-                            addPlayer.invoke(bossBar, player);
-                        }
+                        addPlayer.invoke(bossBar, player);
 
                     } catch (IllegalAccessException | InvocationTargetException ex) {
                         Bukkit.getLogger().log(Level.SEVERE, "An error occurred while adding boss bar timer for '" + player.getName() + "', are you using Minecraft 1.9 or higher?", ex);
@@ -249,9 +237,7 @@ public static void newTimer() throws InvocationTargetException, IllegalAccessExc
 
         if (bossBar != null) {
             try {
-                if (RoboRef.isOnRegion(player, TimerCommand.rg.getId())) {
-                    addPlayer.invoke(bossBar, player);
-                }
+                addPlayer.invoke(bossBar, player);
             } catch (IllegalAccessException | InvocationTargetException ex) {
                 Bukkit.getLogger().log(Level.SEVERE, "An error occurred while adding boss bar timer for '" + player.getName() + "', are you using Minecraft 1.9 or higher?", ex);
             }
