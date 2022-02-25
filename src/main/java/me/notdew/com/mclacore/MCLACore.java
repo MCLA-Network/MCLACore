@@ -1,12 +1,15 @@
 package me.notdew.com.mclacore;
 
 import me.notdew.com.mclacore.Steal.*;
+import me.notdew.com.mclacore.runnable.TimerRunnable;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.SelfUser;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,6 +23,7 @@ import org.bukkit.scoreboard.ScoreboardManager;
 import javax.security.auth.login.LoginException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public final class MCLACore extends JavaPlugin implements Listener {
@@ -119,6 +123,61 @@ public final class MCLACore extends JavaPlugin implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         e.getPlayer().setScoreboard(board);
     }
+    private static TimerRunnable runnable = null;
+
+    public static TimerRunnable getRunnable() {
+        return runnable;
+    }
+    @Override
+    public void reloadConfig() {
+        super.reloadConfig();
+
+        if (getConfig().getConfigurationSection("bossbar") == null) {
+            getConfig().set("bossbar.enabled", true);
+            getConfig().set("bossbar.color", "pink");
+            getConfig().set("bossbar.style", "solid");
+            saveConfig();
+        }
+
+        if (runnable != null && runnable.getHandler() instanceof Listener) {
+            HandlerList.unregisterAll((Listener) runnable.getHandler());
+        }
+
+        try {
+            PacketSender packetSender = new PacketSender();
+            FileConfiguration config = getConfig();
+
+            if (config.getBoolean("bossbar.enabled")) {
+                try {
+                    runnable = new TimerRunnable(this, new BossBarHandler(this, config.getString("bossbar.color", "pink"), config.getString("bossbar.style", "solid")));
+                    return;
+                } catch (Exception ignored) {}
+
+                getLogger().warning("BossBars are not supported in pre Minecraft 1.9, defaulting to action bar.");
+            }
+
+            try {
+                runnable = new TimerRunnable(this, new NewActionBarHandler(packetSender));
+            } catch (Exception ex) {
+                runnable = new TimerRunnable(this, new OldActionBarHandler(packetSender));
+            }
+        } catch (Exception ex) {
+            getLogger().log(Level.SEVERE, "Failed to setup action timer plugin, are you using Minecraft 1.8 or higher?", ex);
+            setEnabled(false);
+        }
+    }
+    public static void getItems(CommandSender s) {
+        if (!(s instanceof Player)) {
+            s.sendMessage(ChatColor.RED + "Only players can use items!");
+            return;
+        }
+        Player p = (Player) s;
+        p.getInventory().setItem(0, ItemListener.getStartItem());
+        p.getInventory().setItem(1, ItemListener.getStopItem());
+        p.getInventory().setItem(2, ItemListener.getPauseItem());
+
+    }
+
 
 
 }

@@ -49,7 +49,7 @@ public class ArrowHitGround implements Listener {
             for(int x = 0; x < nearByEntities.size(); ++x) {
                 if (nearByEntities.get(x) instanceof Player) {
                     Player otherplayer = (Player)nearByEntities.get(x);
-                    otherplayer.sendMessage(ChatColor.BLUE + event.getHitEntity().getName() + " has picked up the ball.");
+                    otherplayer.sendMessage(ChatColor.WHITE + event.getHitEntity().getName() + "" + ChatColor.BLUE + " has picked up the ball.");
 
                 }
             }

@@ -24,7 +24,7 @@ public class GetBallCommand implements CommandExecutor {
         for(int x = 0; x < nearByEntities.size(); ++x) {
             if (nearByEntities.get(x) instanceof Player) {
                 Player otherplayer = (Player)nearByEntities.get(x);
-                otherplayer.sendMessage(ChatColor.BLUE + p.getName() + " has picked up the ball.");
+                otherplayer.sendMessage(ChatColor.WHITE + p.getName() + ChatColor.BLUE + " has picked up the ball.");
             }
         }
         if (p.getWorld().getName().equals("Scrim1")) {

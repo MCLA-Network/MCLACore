@@ -1,5 +1,5 @@
 name: MCLACore
-version: '${project.version}'
+version: 1.0
 main: me.notdew.com.mclacore.MCLACore
 api-version: 1.16
 description: MCLA Network Core Plugin.

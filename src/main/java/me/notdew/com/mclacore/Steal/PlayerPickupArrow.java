@@ -32,7 +32,7 @@ public class PlayerPickupArrow implements Listener {
                 for(int x = 0; x < nearByEntities.size(); ++x) {
                     if (nearByEntities.get(x) instanceof Player) {
                         Player otherplayer = (Player)nearByEntities.get(x);
-                        otherplayer.sendMessage(ChatColor.BLUE + e.getPlayer().getName() + " has picked up the ball.");
+                        otherplayer.sendMessage(ChatColor.WHITE + e.getPlayer().getName() + "" + ChatColor.BLUE + " has picked up the ball.");
                     }
                 }
                 return;
@@ -48,7 +48,7 @@ public class PlayerPickupArrow implements Listener {
                 for(int x = 0; x < nearByEntities.size(); ++x) {
                     if (nearByEntities.get(x) instanceof Player) {
                         Player otherplayer = (Player)nearByEntities.get(x);
-                        otherplayer.sendMessage(ChatColor.BLUE + e.getPlayer().getName() + " has picked up the ball.");
+                        otherplayer.sendMessage(ChatColor.WHITE + e.getPlayer().getName() + "" + ChatColor.BLUE + " has picked up the ball.");
                     }
                 }
                 return;
@@ -64,7 +64,7 @@ public class PlayerPickupArrow implements Listener {
                 for(int x = 0; x < nearByEntities.size(); ++x) {
                     if (nearByEntities.get(x) instanceof Player) {
                         Player otherplayer = (Player)nearByEntities.get(x);
-                        otherplayer.sendMessage(ChatColor.BLUE + e.getPlayer().getName() + " has picked up the ball.");
+                        otherplayer.sendMessage(ChatColor.WHITE + e.getPlayer().getName() + "" + ChatColor.BLUE + " has picked up the ball.");
                     }
                 }
                 return;

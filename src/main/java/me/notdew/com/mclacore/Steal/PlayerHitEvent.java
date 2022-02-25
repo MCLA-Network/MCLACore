@@ -84,7 +84,7 @@ public class PlayerHitEvent implements Listener {
                 for(int x = 0; x < nearByEntities.size(); ++x) {
                     if (nearByEntities.get(x) instanceof Player) {
                         Player otherplayer = (Player)nearByEntities.get(x);
-                        otherplayer.sendMessage(ChatColor.RED + e.getDamager().getName() + " has STOLEN the ball.");
+                        otherplayer.sendMessage(ChatColor.WHITE + e.getDamager().getName() + "" + ChatColor.RED + " has STOLEN the ball.");
                     }
                 }
             }
@@ -105,7 +105,7 @@ public class PlayerHitEvent implements Listener {
                 for(int x = 0; x < nearByEntities.size(); ++x) {
                     if (nearByEntities.get(x) instanceof Player) {
                         Player otherplayer = (Player)nearByEntities.get(x);
-                        otherplayer.sendMessage(ChatColor.RED + e.getDamager().getName() + " has STOLEN the ball.");
+                        otherplayer.sendMessage(ChatColor.WHITE + e.getDamager().getName() + "" +  ChatColor.RED + " has STOLEN the ball.");
                     }
                 }
             }
@@ -126,7 +126,7 @@ public class PlayerHitEvent implements Listener {
                 for(int x = 0; x < nearByEntities.size(); ++x) {
                     if (nearByEntities.get(x) instanceof Player) {
                         Player otherplayer = (Player)nearByEntities.get(x);
-                        otherplayer.sendMessage(ChatColor.RED + e.getDamager().getName() + " has STOLEN the ball.");
+                        otherplayer.sendMessage(ChatColor.WHITE + e.getDamager().getName() + ChatColor.RED + " has STOLEN the ball.");
                     }
                 }
             }
