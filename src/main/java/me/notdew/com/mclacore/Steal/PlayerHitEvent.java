@@ -30,7 +30,7 @@ public class PlayerHitEvent implements Listener {
                 cancel();
                 return;
                 }
-        }.runTaskLater(MCLACore.getInstance(),18L);
+        }.runTaskLater(MCLACore.getInstance(),5L);
 
         if ((e.getDamager() instanceof Player && e.getEntity() instanceof Player)) {
 

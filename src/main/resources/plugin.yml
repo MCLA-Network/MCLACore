@@ -12,3 +12,5 @@ commands:
     usage: /<command>
   removeball:
     usage: /<command>
+  timer:
+    usage: /<command>

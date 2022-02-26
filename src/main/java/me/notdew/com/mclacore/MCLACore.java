@@ -21,7 +21,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.DisplaySlot;
-import me.notdew.com.mclacore.ReflectionUtils;
+import me.notdew.com.mclacore.TimerCommand;
 
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
@@ -79,6 +79,7 @@ public final class MCLACore extends JavaPlugin implements Listener {
     private JDA jda;
     @Override
     public void onEnable() {
+        reloadConfig();
         instance = this;
         // Plugin startup logic
         getServer().getPluginManager().registerEvents(new ArrowHitGround(), this);
@@ -86,6 +87,7 @@ public final class MCLACore extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new PlayerHitEvent(), this);
         getServer().getPluginManager().registerEvents(new BowShot(), this);
         getServer().getPluginManager().registerEvents(new PlayerPickupArrow(), this);
+        getServer().getPluginManager().registerEvents(new ItemListener(this), this);
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         board = manager.getNewScoreboard();
         obj = board.registerNewObjective("info", "dummy");
@@ -96,6 +98,7 @@ public final class MCLACore extends JavaPlugin implements Listener {
         getCommand("hitlists").setExecutor(new HitListTest());
         getCommand("getball").setExecutor(new GetBallCommand());
         getCommand("removeball").setExecutor(new RemoveBallCommand());
+        getCommand("timer").setExecutor(new TimerCommand(this));
         System.out.println("Connecting to Discord API");
         try {
             jda = JDABuilder.createDefault(TOKEN)
@@ -182,9 +185,9 @@ public final class MCLACore extends JavaPlugin implements Listener {
             return;
         }
         Player p = (Player) s;
-        p.getInventory().setItem(0, ItemListener.getStartItem());
-        p.getInventory().setItem(1, ItemListener.getStopItem());
-        p.getInventory().setItem(2, ItemListener.getPauseItem());
+        p.getInventory().addItem(ItemListener.getStartItem());
+        p.getInventory().addItem(ItemListener.getStopItem());
+        p.getInventory().addItem(ItemListener.getPauseItem());
 
     }
 
