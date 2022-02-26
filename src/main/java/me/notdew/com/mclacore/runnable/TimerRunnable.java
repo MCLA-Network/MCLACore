@@ -28,6 +28,7 @@
 package me.notdew.com.mclacore.runnable;
 
 import me.notdew.com.mclacore.MCLACore;
+import me.notdew.com.mclacore.ScoreCommand;
 import me.notdew.com.mclacore.handling.TimerHandler;
 import me.notdew.com.mclacore.handling.handlers.BossBarHandler;
 import org.bukkit.Bukkit;
@@ -54,13 +55,15 @@ public class TimerRunnable implements Runnable {
         }
     }
 
-    public boolean countdown = true;
+    public static boolean countdown = true;
     private int jobId = -1;
 
-    private String message;
 
-    private int remaining = 0;
+    public static int remaining = 0;
     private int total = 0;
+    public static String message;
+
+
 
     @Override
     public void run() {

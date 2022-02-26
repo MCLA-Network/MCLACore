@@ -76,7 +76,7 @@ public final class MCLACore extends JavaPlugin implements Listener {
     private final String chatChannel = null;
     public static final String PREFIX = "§7(§cMCLA) Timer §7» §7";
     public final String TOKEN = "OTMyNzExNDUzNDkwODE5MTMy.YeW9Ow.DIReUfgLlM1tQMOGyrmnlvpCUWU";
-    private JDA jda;
+    private static JDA jda;
     @Override
     public void onEnable() {
         reloadConfig();
@@ -116,7 +116,7 @@ public final class MCLACore extends JavaPlugin implements Listener {
         }
 
     }
-    public JDA getJda() {
+    public static JDA getJda() {
         return jda;
     }
 
