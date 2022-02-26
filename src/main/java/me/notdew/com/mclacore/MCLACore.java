@@ -59,6 +59,8 @@ public final class MCLACore extends JavaPlugin implements Listener {
     private static MCLACore instance;
 
     public static MCLACore getInstance() {return instance;}
+    private static int scoreID;
+    public static int getId() {return scoreID;}
 
     private final Logger logger = null;
     private final String token = null;
@@ -72,6 +74,7 @@ public final class MCLACore extends JavaPlugin implements Listener {
     private final String joinLeaveChannel = null;
     private final String botCommandsChannel = null;
     private final String chatChannel = null;
+    public static final String PREFIX = "§7(§cMCLA) Timer §7» §7";
     public final String TOKEN = "OTMyNzExNDUzNDkwODE5MTMy.YeW9Ow.DIReUfgLlM1tQMOGyrmnlvpCUWU";
     private JDA jda;
     @Override
@@ -96,7 +99,7 @@ public final class MCLACore extends JavaPlugin implements Listener {
         System.out.println("Connecting to Discord API");
         try {
             jda = JDABuilder.createDefault(TOKEN)
-                    .setActivity(Activity.playing("Minecraft"))
+                    .setActivity(Activity.playing("discord.gg/mcla :D"))
                     .build();
             try {
                 jda.awaitReady();

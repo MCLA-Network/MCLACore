@@ -24,6 +24,13 @@ public class PlayerHitEvent implements Listener {
 
     @EventHandler
     public void onPlayerHit(EntityDamageByEntityEvent e) {
+        new BukkitRunnable() {
+            @Override
+            public void run(){
+                cancel();
+                return;
+                }
+        }.runTaskLater(MCLACore.getInstance(),18L);
 
         if ((e.getDamager() instanceof Player && e.getEntity() instanceof Player)) {
 
