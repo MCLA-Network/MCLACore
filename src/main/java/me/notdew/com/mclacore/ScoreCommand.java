@@ -50,9 +50,7 @@ public class ScoreCommand implements CommandExecutor {
                 team1 = args[1];
                 team2 = args[2];
                 startscore = true;
-                TextChannel ch = plugin.getJda().getTextChannelById("942972254118109235");
-
-
+                TextChannel ch = plugin.getJda().getTextChannelById("949887410580385852");
                 if (args[1] != null && args[2] != null) {
                     Guild guild = ch.getGuild();
                     EmbedBuilder emb = new EmbedBuilder()
@@ -72,7 +70,7 @@ public class ScoreCommand implements CommandExecutor {
                 eb.setColor(Color.red);
                 eb.setColor(new Color(0xF40C0C));
                 eb.setColor(new Color(255, 0, 54));
-                TextChannel ch = plugin.getJda().getTextChannelById("942972254118109235");
+                TextChannel ch = plugin.getJda().getTextChannelById("949887410580385852");
 
 
 
@@ -86,7 +84,8 @@ public class ScoreCommand implements CommandExecutor {
                             .setFooter(guild.getName(), guild.getIconUrl())
                             .setTimestamp(Instant.now());
                     ch.editMessageEmbedsById(ch.getLatestMessageIdLong(), emb.build()).queue();
-                    ch.sendMessage("@Scores");
+
+                    ch.sendMessage("<@&942836169752866866>").mentionRoles("942269592670179348").queue();
                     team1 = null;
                     team2 = null;
                     startscore = false;
@@ -104,8 +103,7 @@ public class ScoreCommand implements CommandExecutor {
     }
     public static void updateScore() {
         if(startscore == false || team1 == null || team2 == null) return;
-        startscore = true;
-        TextChannel ch = MCLACore.getJda().getTextChannelById("942972254118109235");
+        TextChannel ch = MCLACore.getJda().getTextChannelById("949887410580385852");
 
 
         if (team1 != null && team2 != null) {
