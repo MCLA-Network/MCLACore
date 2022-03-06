@@ -23,7 +23,11 @@ public class HitListTest implements CommandExecutor {
             sender.sendMessage(MCLACore.getHitList().toString() + " 3");
             sender.sendMessage(MCLACore.getOneHitList().toString());
             sender.sendMessage(MCLACore.getTwoHitList().toString());
-        }
+        } else if (((Player) sender).getWorld().getName().equals("Hedgehogs")) {
+            sender.sendMessage(MCLACore.s3getHitList().toString() + " 4");
+            sender.sendMessage(MCLACore.s3getOneHitList().toString());
+            sender.sendMessage(MCLACore.s3getTwoHitList().toString());
+    }
         return false;
     }
 }

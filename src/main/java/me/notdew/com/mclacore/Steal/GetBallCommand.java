@@ -32,6 +32,12 @@ public class GetBallCommand implements CommandExecutor {
             MCLACore.s1getOneHitList().clear();
             MCLACore.s1getTwoHitList().clear();
         }
+        if (p.getWorld().getName().equals("Hedgehogs")) {
+            MCLACore.s3getHitList().clear();
+            MCLACore.s3getOneHitList().clear();
+            MCLACore.s3getTwoHitList().clear();
+            MCLACore.s3getHitList().add(p);
+        }
         if (p.getWorld().getName().equals("Scrim2")) {
             MCLACore.s2getHitList().clear();
             MCLACore.s2getOneHitList().clear();

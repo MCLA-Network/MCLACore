@@ -47,6 +47,18 @@ public class PlayerHitEvent implements Listener {
                     return;
                 }
             }
+            if (player.getWorld().getName().equals("Hedgehogs")) {
+                if (MCLACore.s3getHitList().contains(player)) {
+                    MCLACore.s3getOneHitList().add(player);
+                    MCLACore.s3getHitList().remove(player);
+                    return;
+                }
+                if (MCLACore.s3getOneHitList().contains(player)) {
+                    MCLACore.s3getTwoHitList().add(player);
+                    MCLACore.s3getOneHitList().remove(player);
+                    return;
+                }
+            }
             if (player.getWorld().getName().equals("Scrim2")) {
                 if (MCLACore.s2getHitList().contains(player)) {
                     MCLACore.s2getOneHitList().add(player);
@@ -83,6 +95,27 @@ public class PlayerHitEvent implements Listener {
                 MCLACore.s1getOneHitList().clear();
                 MCLACore.s1getTwoHitList().clear();
                 MCLACore.s1getHitList().add((Player) e.getDamager());
+                ((Player) e.getDamager()).getInventory().addItem(new ItemStack(Material.SPECTRAL_ARROW));
+                ArrayList<Entity> nearByEntities = (ArrayList)e.getEntity().getNearbyEntities(75,75,75);
+                nearByEntities.add((Player) e.getEntity());
+                ((Player) e.getEntity()).getInventory().remove(new ItemStack (Material.SPECTRAL_ARROW));
+
+                for(int x = 0; x < nearByEntities.size(); ++x) {
+                    if (nearByEntities.get(x) instanceof Player) {
+                        Player otherplayer = (Player)nearByEntities.get(x);
+                        otherplayer.sendMessage(ChatColor.WHITE + e.getDamager().getName() + "" + ChatColor.RED + " has STOLEN the ball.");
+                    }
+                }
+            }
+            if (MCLACore.s3getTwoHitList().contains(player)) {
+                MCLACore.s3getTwoHitList().remove(player);
+                World world = player.getWorld();
+                Player p = player;
+                Location l = player.getLocation();
+                MCLACore.s3getHitList().clear();
+                MCLACore.s3getOneHitList().clear();
+                MCLACore.s3getTwoHitList().clear();
+                MCLACore.s3getHitList().add((Player) e.getDamager());
                 ((Player) e.getDamager()).getInventory().addItem(new ItemStack(Material.SPECTRAL_ARROW));
                 ArrayList<Entity> nearByEntities = (ArrayList)e.getEntity().getNearbyEntities(75,75,75);
                 nearByEntities.add((Player) e.getEntity());

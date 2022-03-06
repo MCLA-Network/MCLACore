@@ -38,12 +38,19 @@ public class ArrowHitGround implements Listener {
                 MCLACore.s2getTwoHitList().clear();
                 MCLACore.s2getHitList().add((Player)event.getHitEntity());
             }
+            if (p.getWorld().getName().equals("Hedgehogs")) {
+                MCLACore.s3getHitList().clear();
+                MCLACore.s3getOneHitList().clear();
+                MCLACore.s3getTwoHitList().clear();
+                MCLACore.s3getHitList().add((Player)event.getHitEntity());
+            }
             if (p.getWorld().getName().equals("SouthwestArena")) {
                 MCLACore.getHitList().clear();
                 MCLACore.getOneHitList().clear();
                 MCLACore.getTwoHitList().clear();
                 MCLACore.getHitList().add((Player)event.getHitEntity());
             }
+
 
 
             for(int x = 0; x < nearByEntities.size(); ++x) {
@@ -113,6 +120,21 @@ public class ArrowHitGround implements Listener {
                 MCLACore.getHitList().clear();
                 MCLACore.getOneHitList().clear();
                 MCLACore.getTwoHitList().clear();
+
+                for (int x = 0; x < nearByEntities.size(); ++x) {
+                    if (nearByEntities.get(x) instanceof Player) {
+                        Player otherplayer = (Player) nearByEntities.get(x);
+                        otherplayer.sendTitle(ChatColor.RED + "GOAL!!", "GOAL BY: " + shooter.getName());
+                    }
+                }
+                event.getEntity().remove();
+                return;
+
+            } else if (shooter.getWorld().getName().equals("Hedgehogs")) {
+                ArrayList<Entity> nearByEntities = (ArrayList) event.getEntity().getNearbyEntities(75, 75, 75);
+                MCLACore.s3getHitList().clear();
+                MCLACore.s3getOneHitList().clear();
+                MCLACore.s3getTwoHitList().clear();
 
                 for (int x = 0; x < nearByEntities.size(); ++x) {
                     if (nearByEntities.get(x) instanceof Player) {

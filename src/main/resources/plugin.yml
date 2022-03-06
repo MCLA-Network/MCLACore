@@ -1,6 +1,7 @@
 name: MCLACore
 version: 1.0
 main: me.notdew.com.mclacore.MCLACore
+author: NotDew
 api-version: 1.16
 description: MCLA Network Core Plugin.
 commands:

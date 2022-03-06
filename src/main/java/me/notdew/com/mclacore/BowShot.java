@@ -36,6 +36,11 @@ public class BowShot implements Listener {
                 MCLACore.getOneHitList().clear();
                 MCLACore.getTwoHitList().clear();
             }
+            if (p.getWorld().getName().equals("Hedgehogs")) {
+                MCLACore.s3getHitList().clear();
+                MCLACore.s3getOneHitList().clear();
+                MCLACore.s3getTwoHitList().clear();
+            }
         }
 
     }

@@ -1,11 +1,6 @@
 package me.notdew.com.mclacore;
 
 import me.notdew.com.mclacore.Steal.*;
-import me.notdew.com.mclacore.handling.PacketSender;
-import me.notdew.com.mclacore.handling.handlers.BossBarHandler;
-import me.notdew.com.mclacore.handling.handlers.NewActionBarHandler;
-import me.notdew.com.mclacore.handling.handlers.OldActionBarHandler;
-import me.notdew.com.mclacore.runnable.TimerRunnable;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -21,7 +16,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.DisplaySlot;
-import me.notdew.com.mclacore.ReflectionUtils;
 
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
@@ -56,6 +50,12 @@ public final class MCLACore extends JavaPlugin implements Listener {
     public static List<Player> s2getHitList() {return s2hitlist;}
     public static List<Player> s2getOneHitList() {return s2OneHitList;}
     public static List<Player> s2getTwoHitList() {return s2TwoHitList;}
+    private static List<Player> s3hitlist = new ArrayList<>();
+    private static List<Player> s3OneHitList = new ArrayList<Player>();
+    private static List<Player> s3TwoHitList = new ArrayList<Player>();
+    public static List<Player> s3getHitList() {return s3hitlist;}
+    public static List<Player> s3getOneHitList() {return s3OneHitList;}
+    public static List<Player> s3getTwoHitList() {return s3TwoHitList;}
     private static MCLACore instance;
 
     public static MCLACore getInstance() {return instance;}
@@ -76,9 +76,10 @@ public final class MCLACore extends JavaPlugin implements Listener {
     private final String chatChannel = null;
     public static final String PREFIX = "§7(§cMCLA) Timer §7» §7";
     public final String TOKEN = "OTMyNzExNDUzNDkwODE5MTMy.YeW9Ow.DIReUfgLlM1tQMOGyrmnlvpCUWU";
-    private JDA jda;
+    private static JDA jda;
     @Override
     public void onEnable() {
+        reloadConfig();
         instance = this;
         // Plugin startup logic
         getServer().getPluginManager().registerEvents(new ArrowHitGround(), this);
@@ -113,7 +114,7 @@ public final class MCLACore extends JavaPlugin implements Listener {
         }
 
     }
-    public JDA getJda() {
+    public static JDA getJda() {
         return jda;
     }
 
@@ -132,60 +133,6 @@ public final class MCLACore extends JavaPlugin implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         e.getPlayer().setScoreboard(board);
-    }
-    private static TimerRunnable runnable = null;
-
-    public static TimerRunnable getRunnable() {
-        return runnable;
-    }
-    @Override
-    public void reloadConfig() {
-        super.reloadConfig();
-
-        if (getConfig().getConfigurationSection("bossbar") == null) {
-            getConfig().set("bossbar.enabled", true);
-            getConfig().set("bossbar.color", "pink");
-            getConfig().set("bossbar.style", "solid");
-            saveConfig();
-        }
-
-        if (runnable != null && runnable.getHandler() instanceof Listener) {
-            HandlerList.unregisterAll((Listener) runnable.getHandler());
-        }
-
-        try {
-            PacketSender packetSender = new PacketSender();
-            FileConfiguration config = getConfig();
-
-            if (config.getBoolean("bossbar.enabled")) {
-                try {
-                    runnable = new TimerRunnable(this, new BossBarHandler(this, config.getString("bossbar.color", "pink"), config.getString("bossbar.style", "solid")));
-                    return;
-                } catch (Exception ignored) {}
-
-                getLogger().warning("BossBars are not supported in pre Minecraft 1.9, defaulting to action bar.");
-            }
-
-            try {
-                runnable = new TimerRunnable(this, new NewActionBarHandler(packetSender));
-            } catch (Exception ex) {
-                runnable = new TimerRunnable(this, new OldActionBarHandler(packetSender));
-            }
-        } catch (Exception ex) {
-            getLogger().log(Level.SEVERE, "Failed to setup action timer plugin, are you using Minecraft 1.8 or higher?", ex);
-            setEnabled(false);
-        }
-    }
-    public static void getItems(CommandSender s) {
-        if (!(s instanceof Player)) {
-            s.sendMessage(ChatColor.RED + "Only players can use items!");
-            return;
-        }
-        Player p = (Player) s;
-        p.getInventory().setItem(0, ItemListener.getStartItem());
-        p.getInventory().setItem(1, ItemListener.getStopItem());
-        p.getInventory().setItem(2, ItemListener.getPauseItem());
-
     }
 
 

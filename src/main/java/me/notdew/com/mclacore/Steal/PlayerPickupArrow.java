@@ -53,6 +53,22 @@ public class PlayerPickupArrow implements Listener {
                 }
                 return;
             }
+            if (player.getWorld().getName().equals("Hedgehogs")) {
+                MCLACore.s3getHitList().clear();
+                MCLACore.s3getOneHitList().clear();
+                MCLACore.s3getTwoHitList().clear();
+                MCLACore.s3getHitList().add(e.getPlayer());
+                ArrayList<Entity> nearByEntities = (ArrayList)e.getPlayer().getNearbyEntities(75,75,75);
+                nearByEntities.add(e.getPlayer());
+
+                for(int x = 0; x < nearByEntities.size(); ++x) {
+                    if (nearByEntities.get(x) instanceof Player) {
+                        Player otherplayer = (Player)nearByEntities.get(x);
+                        otherplayer.sendMessage(ChatColor.WHITE + e.getPlayer().getName() + "" + ChatColor.BLUE + " has picked up the ball.");
+                    }
+                }
+                return;
+            }
             if (player.getWorld().getName().equals("SouthwestArena")) {
                 MCLACore.getHitList().clear();
                 MCLACore.getOneHitList().clear();

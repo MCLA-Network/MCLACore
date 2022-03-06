@@ -30,6 +30,11 @@ public class RemoveBallCommand implements CommandExecutor {
             MCLACore.s2getOneHitList().remove(p);
             MCLACore.s2getTwoHitList().remove(p);
         }
+        if (p.getWorld().getName().equals("Hedgehogs")) {
+            MCLACore.s3getHitList().remove(p);
+            MCLACore.s3getOneHitList().remove(p);
+            MCLACore.s3getTwoHitList().remove(p);
+        }
         if (p.getWorld().getName().equals("SouthwestArena")) {
             MCLACore.getHitList().remove(p);
             MCLACore.getOneHitList().remove(p);
