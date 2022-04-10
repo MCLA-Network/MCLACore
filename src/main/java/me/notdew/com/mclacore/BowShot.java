@@ -1,6 +1,8 @@
 package me.notdew.com.mclacore;
 
+import me.notdew.com.mclacore.Stats.ProfileCommand;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
@@ -21,6 +23,13 @@ public class BowShot implements Listener {
 
             Player player = (Player) e.getEntity();
             Player p = (Player) e.getEntity();
+            if(ProfileCommand.rg != null) {
+                if (MCLACore.isOnRegion(p, ProfileCommand.rg.getId())) {
+
+                    if (!(MCLACore.getInstance().getConfig().contains(p.getName()))) Bukkit.broadcastMessage(ChatColor.RED + "Cannot statkeep for: " + p.getName() + ". Profile not found.");
+                    MCLACore.getInstance().getConfig().set(p.getName() + ".passes", (Integer.parseInt(MCLACore.getInstance().getConfig().getString(p.getName() + ".passes")) + 1));
+                }
+            }
             if (p.getWorld().getName().equals("Scrim1")) {
                 MCLACore.s1getHitList().clear();
                 MCLACore.s1getOneHitList().clear();
@@ -40,6 +49,21 @@ public class BowShot implements Listener {
                 MCLACore.s3getHitList().clear();
                 MCLACore.s3getOneHitList().clear();
                 MCLACore.s3getTwoHitList().clear();
+            }
+            if (p.getWorld().getName().equals("Tarantulas")) {
+                MCLACore.s4getHitList().clear();
+                MCLACore.s4getOneHitList().clear();
+                MCLACore.s4getTwoHitList().clear();
+            }
+            if (p.getWorld().getName().equals("Cowboys")) {
+                MCLACore.s5getHitList().clear();
+                MCLACore.s5getOneHitList().clear();
+                MCLACore.s5getTwoHitList().clear();
+            }
+            if (p.getWorld().getName().equals("Bobcats")) {
+                MCLACore.s6getHitList().clear();
+                MCLACore.s6getOneHitList().clear();
+                MCLACore.s6getTwoHitList().clear();
             }
         }
 

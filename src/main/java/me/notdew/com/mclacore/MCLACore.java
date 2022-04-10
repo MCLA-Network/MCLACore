@@ -1,12 +1,21 @@
 package me.notdew.com.mclacore;
 
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.protection.managers.RegionManager;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import com.sk89q.worldguard.protection.regions.RegionContainer;
+import me.notdew.com.mclacore.Stats.ProfileCommand;
 import me.notdew.com.mclacore.Steal.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.SelfUser;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -56,7 +65,27 @@ public final class MCLACore extends JavaPlugin implements Listener {
     public static List<Player> s3getHitList() {return s3hitlist;}
     public static List<Player> s3getOneHitList() {return s3OneHitList;}
     public static List<Player> s3getTwoHitList() {return s3TwoHitList;}
+    private static List<Player> s4hitlist = new ArrayList<>();
+    private static List<Player> s4OneHitList = new ArrayList<Player>();
+    private static List<Player> s4TwoHitList = new ArrayList<Player>();
+    public static List<Player> s4getHitList() {return s4hitlist;}
+    public static List<Player> s4getOneHitList() {return s4OneHitList;}
+    public static List<Player> s4getTwoHitList() {return s4TwoHitList;}
+    private static List<Player> s5hitlist = new ArrayList<>();
+    private static List<Player> s5OneHitList = new ArrayList<Player>();
+    private static List<Player> s5TwoHitList = new ArrayList<Player>();
+    public static List<Player> s5getHitList() {return s5hitlist;}
+    public static List<Player> s5getOneHitList() {return s5OneHitList;}
+    public static List<Player> s5getTwoHitList() {return s5TwoHitList;}
+    private static List<Player> s6hitlist = new ArrayList<>();
+    private static List<Player> s6OneHitList = new ArrayList<Player>();
+    private static List<Player> s6TwoHitList = new ArrayList<Player>();
+    public static List<Player> s6getHitList() {return s5hitlist;}
+    public static List<Player> s6getOneHitList() {return s5OneHitList;}
+    public static List<Player> s6getTwoHitList() {return s5TwoHitList;}
     private static MCLACore instance;
+    private static List<Player> onField = new ArrayList<Player>();
+    public static List<Player> getonField() {return onField;}
 
     public static MCLACore getInstance() {return instance;}
     private static int scoreID;
@@ -68,6 +97,10 @@ public final class MCLACore extends JavaPlugin implements Listener {
     private final String prefix = null;
     public static String away;
     public static String home;
+    public static final int DEFAULT_CPS_LIMIT = 10;
+    private int maxCPS;
+
+    private FileConfiguration config = getConfig();
     private final String discordServer = null;
     private final String adminRole = null;
     private final String deathChannel = null;
@@ -77,12 +110,13 @@ public final class MCLACore extends JavaPlugin implements Listener {
     public static final String PREFIX = "§7(§cMCLA) Timer §7» §7";
     public final String TOKEN = "OTMyNzExNDUzNDkwODE5MTMy.YeW9Ow.DIReUfgLlM1tQMOGyrmnlvpCUWU";
     private static JDA jda;
+    private LuckPerms luckPerms = LuckPermsProvider.get();
     @Override
     public void onEnable() {
         reloadConfig();
         instance = this;
         // Plugin startup logic
-        getServer().getPluginManager().registerEvents(new ArrowHitGround(), this);
+        getServer().getPluginManager().registerEvents(new ArrowHitGround(this, luckPerms), this);
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(new PlayerHitEvent(), this);
         getServer().getPluginManager().registerEvents(new BowShot(), this);
@@ -97,6 +131,10 @@ public final class MCLACore extends JavaPlugin implements Listener {
         getCommand("hitlists").setExecutor(new HitListTest());
         getCommand("getball").setExecutor(new GetBallCommand());
         getCommand("removeball").setExecutor(new RemoveBallCommand());
+        getCommand("profile").setExecutor(new ProfileCommand());
+        getCommand("startgame").setExecutor(new StartGameCommand(this));
+        getCommand("goal").setExecutor(new GoalCommand());
+        getCommand("hold").setExecutor(new HoldCommand());
         System.out.println("Connecting to Discord API");
         try {
             jda = JDABuilder.createDefault(TOKEN)
@@ -124,15 +162,41 @@ public final class MCLACore extends JavaPlugin implements Listener {
         logger.severe("With message: " + e.getMessage());
     }
 
+    public int getMaxCPS() {
+        return config.getInt("CPS Limit");
+    }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        this.saveConfig();
     }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         e.getPlayer().setScoreboard(board);
+        // --------------------------------
+
+        if (this.getConfig().contains(e.getPlayer().getName())) return;
+
+        this.getConfig().set(e.getPlayer().getDisplayName() + ".goals", 0);
+        this.getConfig().set(e.getPlayer().getDisplayName() + ".steals", 0);
+        this.getConfig().set(e.getPlayer().getDisplayName() + ".passes", 0);
+        System.out.println("Succefully Loaded New Profile: " + e.getPlayer().getDisplayName());
+        this.getInstance().saveConfig();
+    }
+    public static boolean isOnRegion(Player p, String region) {
+        Location location = p.getLocation();
+        RegionContainer regionContainer = WorldGuard.getInstance().getPlatform().getRegionContainer();
+        RegionManager regionManager = regionContainer.get(BukkitAdapter.adapt(location.getWorld()));
+        for(ProtectedRegion r : regionManager.getApplicableRegions(BukkitAdapter.asBlockVector(p.getLocation()))) {
+            if(r.getId().equalsIgnoreCase(region)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
     }
 
 

@@ -21,6 +21,7 @@ public class ScoreCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length > 1) {
+            if (!(sender.hasPermission("ref.is"))) return true;
 
             if (args[0].equalsIgnoreCase("create")) {
 
@@ -50,7 +51,7 @@ public class ScoreCommand implements CommandExecutor {
                 team1 = args[1];
                 team2 = args[2];
                 startscore = true;
-                TextChannel ch = plugin.getJda().getTextChannelById("949887410580385852");
+                TextChannel ch = plugin.getJda().getTextChannelById("942972254118109235");
                 if (args[1] != null && args[2] != null) {
                     Guild guild = ch.getGuild();
                     EmbedBuilder emb = new EmbedBuilder()
@@ -70,7 +71,7 @@ public class ScoreCommand implements CommandExecutor {
                 eb.setColor(Color.red);
                 eb.setColor(new Color(0xF40C0C));
                 eb.setColor(new Color(255, 0, 54));
-                TextChannel ch = plugin.getJda().getTextChannelById("949887410580385852");
+                TextChannel ch = plugin.getJda().getTextChannelById("942972254118109235");
 
 
 
@@ -85,7 +86,7 @@ public class ScoreCommand implements CommandExecutor {
                             .setTimestamp(Instant.now());
                     ch.editMessageEmbedsById(ch.getLatestMessageIdLong(), emb.build()).queue();
 
-                    ch.sendMessage("<@&942836169752866866>").mentionRoles("942269592670179348").queue();
+                    ch.sendMessage("<@&942836169752866866>").mentionRoles("942836169752866866").queue();
                     team1 = null;
                     team2 = null;
                     startscore = false;
@@ -103,7 +104,7 @@ public class ScoreCommand implements CommandExecutor {
     }
     public static void updateScore() {
         if(startscore == false || team1 == null || team2 == null) return;
-        TextChannel ch = MCLACore.getJda().getTextChannelById("949887410580385852");
+        TextChannel ch = MCLACore.getJda().getTextChannelById("942972254118109235");
 
 
         if (team1 != null && team2 != null) {

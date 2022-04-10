@@ -27,7 +27,19 @@ public class HitListTest implements CommandExecutor {
             sender.sendMessage(MCLACore.s3getHitList().toString() + " 4");
             sender.sendMessage(MCLACore.s3getOneHitList().toString());
             sender.sendMessage(MCLACore.s3getTwoHitList().toString());
-    }
+        } else if (((Player) sender).getWorld().getName().equals("Tarantulas")) {
+            sender.sendMessage(MCLACore.s4getHitList().toString() + " 5");
+            sender.sendMessage(MCLACore.s4getOneHitList().toString());
+            sender.sendMessage(MCLACore.s4getTwoHitList().toString());
+        } else if (((Player) sender).getWorld().getName().equals("Cowboys")) {
+        sender.sendMessage(MCLACore.s5getHitList().toString() + " 6");
+        sender.sendMessage(MCLACore.s5getOneHitList().toString());
+        sender.sendMessage(MCLACore.s5getTwoHitList().toString());
+        } else if (((Player) sender).getWorld().getName().equals("Bobcats")) {
+            sender.sendMessage(MCLACore.s6getHitList().toString() + " 7");
+            sender.sendMessage(MCLACore.s6getOneHitList().toString());
+            sender.sendMessage(MCLACore.s6getTwoHitList().toString());
+        }
         return false;
     }
 }

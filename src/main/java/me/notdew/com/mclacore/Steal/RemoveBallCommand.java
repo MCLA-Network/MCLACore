@@ -40,6 +40,21 @@ public class RemoveBallCommand implements CommandExecutor {
             MCLACore.getOneHitList().remove(p);
             MCLACore.getTwoHitList().remove(p);
         }
+        if (p.getWorld().getName().equals("Tarantulas")) {
+            MCLACore.s4getHitList().remove(p);
+            MCLACore.s4getOneHitList().remove(p);
+            MCLACore.s4getTwoHitList().remove(p);
+        }
+        if (p.getWorld().getName().equals("Cowboys")) {
+            MCLACore.s5getHitList().remove(p);
+            MCLACore.s5getOneHitList().remove(p);
+            MCLACore.s5getTwoHitList().remove(p);
+        }
+        if (p.getWorld().getName().equals("Bobcats")) {
+            MCLACore.s6getHitList().remove(p);
+            MCLACore.s6getOneHitList().remove(p);
+            MCLACore.s6getTwoHitList().remove(p);
+        }
         return true;
     }
 }

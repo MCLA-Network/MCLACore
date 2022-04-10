@@ -4,6 +4,8 @@ main: me.notdew.com.mclacore.MCLACore
 author: NotDew
 api-version: 1.16
 description: MCLA Network Core Plugin.
+load: POSTWORLD
+
 commands:
   score:
     usage: /<command>
@@ -13,3 +15,13 @@ commands:
     usage: /<command>
   removeball:
     usage: /<command>
+  profile:
+    usage: /<command>
+    aliases: [stats, get]
+  startgame:
+    usage: /<command>
+  goal:
+    usage: /<command>
+  hold:
+    usage: /<command>
+    
